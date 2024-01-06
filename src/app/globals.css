@@ -9,6 +9,12 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+@layer utilities {
+  .grid-cols-18{
+    grid-template-columns: repeat(21, minmax(0, 1fr));
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

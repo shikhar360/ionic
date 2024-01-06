@@ -20,6 +20,7 @@ const config: Config = {
       colors : {
         'darkone': '#0a0a0aff',
         'grayone' : '#212126ff',
+        'grayUnselect' : '#2c2e33ff',
         'graylite' : '#34363dff',
         'accent' : '#3bff89ff',
       }
