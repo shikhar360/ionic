@@ -214,9 +214,32 @@ const Asset = ({ params }: IProp) => {
           </div>
         </div>
         <div
-          className={` rounded-xl  col-span-2 row-span-2 min-h-[40vh] bg-grayone flex gap-3 items-center justify-center`}
+          className={` rounded-xl  col-span-2 row-span-2 min-h-[40vh] bg-grayone flex flex-col  items-start p-[3%] justify-start`}
         >
-          <div className={`  h-14`}>hdfk</div>
+          <p className={` font-bold text-xl  py-2`}>Your Info </p>
+          <p className={`text-white/60 w-full flex items-center justify-between text-sm mt-3`}>Wallet Info</p>
+          <p className={` font-semibold text-lg pt-1 `}>$786</p>
+          <div className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}></div>
+          <p className={`text-white/60 w-full flex items-center justify-between text-sm mt-2`}>Available to Supply </p>
+          <div className={`w-full font-semibold text-lg pt-1 flex items-center justify-between `}>
+           <span> 568793 USDC</span>
+           <button className={`rounded-lg bg-accent text-md text-black py-1 px-3`}>Supply</button>
+            </div>
+          <div  className={`text-white/60 w-full flex items-center justify-between text-[10px] `}>$568793</div>
+          <p className={`text-white/60 w-full flex items-center justify-between text-sm mt-3`}>Available to Borrow </p>
+          <div className={`w-full font-semibold text-lg pt-1 flex items-center justify-between `}>
+           <span> 786 USDC</span>
+           <button className={`rounded-lg bg-graylite text-md  text-white/50 py-1 px-3`}>Borrow</button>
+            </div>
+          <div  className={`text-white/60 w-full flex items-center justify-between text-[10px] `}>$867</div>
+         <div className={`flex my-4 items-center justify-center w-full py-2 px-3 rounded-xl border border-[#f3fa96ff] text-[#f3fa96ff]`}> 
+         <img
+            src={`/img/assets/warn.png `}
+            alt='warn'
+            className={`h-7 px-2`}
+          />
+          <span className={`text-sm py-1`}>To borrow you need to supply any asset to be used as collateral</span>
+         </div>
         </div>
         <div
           className={` rounded-xl row-start-2 px-[3%] col-span-4 min-h-[33vh] bg-grayone flex flex-col gap-3 items-start justify-start`}

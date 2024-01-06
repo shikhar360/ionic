@@ -4,6 +4,7 @@
 import { useState } from "react";
 import PoolToggle from "../_components/markets/PoolToggle";
 import PoolRows from "../_components/markets/PoolRows";
+import Popup from "../_components/popup/page";
 
 export default function Market() {
   const poolrow = [
@@ -138,6 +139,7 @@ export default function Market() {
             ))}
         </div>
       </div>
+      <Popup  />
     </main>
   );
 }
