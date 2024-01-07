@@ -7,6 +7,7 @@ import PoolRows from "../_components/markets/PoolRows";
 import Popup from "../_components/popup/page";
 
 export default function Market() {
+
   const poolrow = [
     {
       asset: "MODE",
@@ -45,6 +46,8 @@ export default function Market() {
       bAPR: 68,
     },
   ];
+
+  
   return (
     <main className={`pt-14`}>
       <div className="w-full  flex flex-col items-center justify-start min-h-screen transition-all duration-200 ease-linear">
@@ -139,7 +142,7 @@ export default function Market() {
             ))}
         </div>
       </div>
-      <Popup  />
+      {/* <Popup  /> */}
     </main>
   );
 }

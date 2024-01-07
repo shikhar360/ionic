@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef, useState } from "react";
 import SliderComponent from './Slider';
+import Approved from './Approved';
 
 interface IPopup {
   mode?: string;
 }
 const Popup = ({ mode = "DEFAULT" }: IPopup) => {
-  console.log(mode);
+  // console.log(mode);
   const [active, setActive] = useState<string>("");
   const slide = useRef<HTMLDivElement>(null!);
 
@@ -52,12 +53,16 @@ const Popup = ({ mode = "DEFAULT" }: IPopup) => {
       }
     }
   }, [active, mode]);
+
+
+  const [supplyUtilization , setSupplyUtilization] = useState<number>(0)
+  // console.log(supplyUtilization);
   return (
     <div
       className={` z-40 fixed top-0 right-0 w-full min-h-screen bg-black/25 flex items-center justify-center`}
     >
       <div
-        className={`w-[40%]  min-h-[65vh] bg-grayUnselect  overflow-x-hidden`}
+        className={`w-[40%]   min-h-[65vh] bg-grayUnselect rounded-xl  overflow-x-hidden`}
       >
         <div className={`flex w-20 mx-auto mt-4 mb-2 h-10 relative`}>
           <img
@@ -72,7 +77,7 @@ const Popup = ({ mode = "DEFAULT" }: IPopup) => {
           />
         </div>
         <div
-          className={`w-[96%] mx-auto rounded-lg bg-grayone py-1 grid ${
+          className={`w-[94%] mx-auto rounded-lg bg-grayone py-1 grid ${
             mode === "DEFAULT" ? "grid-cols-4" : "grid-cols-2"
           } text-center gap-x-3 text-xs items-center justify-center`}
         >
@@ -133,8 +138,9 @@ const Popup = ({ mode = "DEFAULT" }: IPopup) => {
         >
           {(mode === "SUPPLY" || mode === "DEFAULT") && (
             <>
-              <div className={`min-w-full py-5`}>
-                <SliderComponent/>
+              <div className={`min-w-full py-5 px-[6%]`}>
+                <SliderComponent handleUtilization={setSupplyUtilization}/>
+                <Approved />
               </div>
               <div className={`min-w-full bg-blue-500`}>supply</div>{" "}
             </>
