@@ -5,8 +5,11 @@ import { useState } from "react";
 import PoolToggle from "../_components/markets/PoolToggle";
 import PoolRows from "../_components/markets/PoolRows";
 import Popup from "../_components/popup/page";
+import { useSearchParams } from "next/navigation";
 
 export default function Market() {
+  const searchParams = useSearchParams();
+  const popmode = searchParams.get("popmode");
 
   const poolrow = [
     {
@@ -47,7 +50,6 @@ export default function Market() {
     },
   ];
 
-  
   return (
     <main className={`pt-14`}>
       <div className="w-full  flex flex-col items-center justify-start min-h-screen transition-all duration-200 ease-linear">
@@ -83,7 +85,9 @@ export default function Market() {
             </div>
           </div>
         </div>
-        <div className={`bg-grayone min-h-[60vh] pb-20 w-full px-[3%] mt-3 rounded-xl`}>
+        <div
+          className={`bg-grayone min-h-[60vh] pb-20 w-full px-[3%] mt-3 rounded-xl`}
+        >
           <div className={` w-full flex items-center justify-center py-3 `}>
             <h1 className={`font-semibold`}>Mode Lending & Borrowing</h1>
             <div
@@ -142,7 +146,7 @@ export default function Market() {
             ))}
         </div>
       </div>
-      {/* <Popup  /> */}
+      {popmode && <Popup mode={popmode} />}
     </main>
   );
 }

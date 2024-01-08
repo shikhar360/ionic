@@ -32,7 +32,7 @@ const SliderComponent = ({ handleUtilization }: IUtilization) => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto mt-8 ">
+    <div className="w-full max-w-md mx-auto mt-3 mb-5 ">
       <div className={`w-full relative mb-2 text-xs text-white/25`}>
         <span className={`${gettextColor()}  `}>{sliderValue}%</span>
         <span className={`absolute left-[80%] -translate-x-full`}>80%</span>

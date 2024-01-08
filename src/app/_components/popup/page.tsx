@@ -1,7 +1,11 @@
+"use client";
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef, useState } from "react";
-import SliderComponent from './Slider';
-import Approved from './Approved';
+import SliderComponent from "./Slider";
+import Approved from "./Approved";
+import Amount from "./Amount";
+import Tab from "./Tab";
+import { useRouter } from "next/navigation";
 
 interface IPopup {
   mode?: string;
@@ -10,7 +14,7 @@ const Popup = ({ mode = "DEFAULT" }: IPopup) => {
   // console.log(mode);
   const [active, setActive] = useState<string>("");
   const slide = useRef<HTMLDivElement>(null!);
-
+  const router = useRouter();
   useEffect(() => {
     if (mode === "DEFAULT" || "SUPPLY") {
       setActive("COLLATERAL");
@@ -54,16 +58,24 @@ const Popup = ({ mode = "DEFAULT" }: IPopup) => {
     }
   }, [active, mode]);
 
-
-  const [supplyUtilization , setSupplyUtilization] = useState<number>(0)
+  const [supplyUtilization, setSupplyUtilization] = useState<number>(0);
+  const [supplyAmt, setSupplyAmt] = useState<number>(0);
   // console.log(supplyUtilization);
+  // console.log(supplyAmt);
+
   return (
     <div
-      className={` z-40 fixed top-0 right-0 w-full min-h-screen bg-black/25 flex items-center justify-center`}
+      className={` z-40 fixed top-0 right-0 w-full min-h-screen  bg-black/25 flex items-center justify-center`}
     >
       <div
-        className={`w-[40%]   min-h-[65vh] bg-grayUnselect rounded-xl  overflow-x-hidden`}
+        className={`w-[40%] relative  bg-grayUnselect rounded-xl max-h-[65vh] overflow-x-hidden overflow-y-scroll scrollbar-hide`}
       >
+        <img
+          src="/img/assets/close.png"
+          alt="close"
+          className={` h-5 z-10 absolute right-4 top-3 cursor-pointer `}
+          onClick={() => router.back()}
+        />
         <div className={`flex w-20 mx-auto mt-4 mb-2 h-10 relative`}>
           <img
             src="/img/logo/DUSD.png"
@@ -76,79 +88,297 @@ const Popup = ({ mode = "DEFAULT" }: IPopup) => {
             className={`w-8 z-20 absolute left-5`}
           />
         </div>
-        <div
-          className={`w-[94%] mx-auto rounded-lg bg-grayone py-1 grid ${
-            mode === "DEFAULT" ? "grid-cols-4" : "grid-cols-2"
-          } text-center gap-x-3 text-xs items-center justify-center`}
-        >
-          {(mode === "SUPPLY" || mode === "DEFAULT") && (
-            <>
-              <p
-                onClick={() => setActive("COLLATERAL")}
-                className={`rounded-md py-1 px-3  cursor-pointer ${
-                  active === "COLLATERAL"
-                    ? "bg-darkone text-accent "
-                    : "text-white/40 "
-                } transition-all duration-200 ease-linear `}
-              >
-                COLLATERAL
-              </p>
-              <p
-                onClick={() => setActive("WITHDRAW")}
-                className={` rounded-md py-1 px-3   ${
-                  active === "WITHDRAW"
-                    ? "bg-darkone text-accent "
-                    : "text-white/40"
-                } cursor-pointer transition-all duration-200 ease-linear`}
-              >
-                WITHDRAW
-              </p>
-            </>
-          )}
-          {(mode === "BORROW" || mode === "DEFAULT") && (
-            <>
-              <p
-                onClick={() => setActive("BORROW")}
-                className={` rounded-md py-1 px-3   ${
-                  active === "BORROW"
-                    ? "bg-darkone text-accent "
-                    : "text-white/40"
-                } cursor-pointer transition-all duration-200 ease-linear`}
-              >
-                BORROW
-              </p>
-              <p
-                onClick={() => setActive("REPAY")}
-                className={` rounded-md py-1 px-3   ${
-                  active === "REPAY"
-                    ? "bg-darkone text-accent "
-                    : "text-white/40"
-                } cursor-pointer transition-all duration-200 ease-linear`}
-              >
-                REPAY
-              </p>
-            </>
-          )}
-        </div>
+        <Tab setActive={setActive} mode={mode} active={active} />
         {/* all the respective slides */}
 
         <div
           ref={slide}
-          className={`w-full transition-all duration-300 ease-linear min-h-full flex`}
+          className={`w-full transition-all duration-300 ease-linear h-min  flex`}
         >
           {(mode === "SUPPLY" || mode === "DEFAULT") && (
             <>
-              <div className={`min-w-full py-5 px-[6%]`}>
-                <SliderComponent handleUtilization={setSupplyUtilization}/>
+              {/* ---------------------------------------------------------------------------- */}
+              {/* SUPPLY-Collateral section */}
+              {/* ---------------------------------------------------------------------------- */}
+              <div className={`min-w-full py-5 px-[6%] h-min `}>
+                <Amount handleInput={setSupplyAmt} />
+                <div
+                  className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}
+                ></div>
+                <div
+                  className={`flex w-full items-center justify-between text-sm text-white/50 `}
+                >
+                  <span className={``}>COLLATERAL APR</span>
+                  <span className={`font-bold pl-2`}>
+                    4.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}
+                ></div>
+                <p className={`text-[10px] text-white/50`}>
+                  SUPPLYING UTILIZATION
+                </p>
+                <SliderComponent handleUtilization={setSupplyUtilization} />
+                <div
+                  className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}
+                ></div>
+                <div
+                  className={`flex w-full items-center justify-between text-xs mb-1 text-white/50 `}
+                >
+                  <span className={``}>COLLATERAL BALANCE</span>
+                  <span className={`font-bold pl-2`}>
+                    6.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between text-xs mb-1 text-white/50 `}
+                >
+                  <span className={``}>BORROW LIMIT</span>
+                  <span className={`font-bold pl-2`}>
+                    14.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between text-xs mb-1 text-white/50 `}
+                >
+                  <span className={``}>DAILY EARNINGS</span>
+                  <span className={`font-bold pl-2`}>
+                    44.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between gap-2  text-sm mb-1 mt-4 text-darkone `}
+                >
+                  <button className={`w-full rounded-md bg-stone-500 py-1  `}>
+                    Approve DUSD
+                  </button>
+                  <button className={`w-full rounded-md bg-stone-500 py-1  `}>
+                    COLLATERAL DUSD
+                    {/* this will be dynamic */}
+                  </button>
+                </div>
                 <Approved />
               </div>
-              <div className={`min-w-full bg-blue-500`}>supply</div>{" "}
+              <div className={`min-w-full py-5 px-[6%] h-min`}>
+                {/* ---------------------------------------------------------------------------- */}
+                {/* SUPPLY-Withdraw section */}
+                {/* ---------------------------------------------------------------------------- */}
+                <Amount handleInput={setSupplyAmt} />
+                <div
+                  className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}
+                ></div>
+                <div
+                  className={`flex w-full items-center justify-between text-sm text-white/50 `}
+                >
+                  <span className={``}>COLLATERAL APR</span>
+                  <span className={`font-bold pl-2`}>
+                    4.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}
+                ></div>
+                <p className={`text-[10px] text-white/50`}>
+                  SUPPLYING UTILIZATION
+                </p>
+                <SliderComponent handleUtilization={setSupplyUtilization} />
+                <div
+                  className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}
+                ></div>
+                <div
+                  className={`flex w-full items-center justify-between text-xs mb-1 text-white/50 `}
+                >
+                  <span className={``}>COLLATERAL BALANCE</span>
+                  <span className={`font-bold pl-2`}>
+                    6.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between text-xs mb-1 text-white/50 `}
+                >
+                  <span className={``}>BORROW LIMIT</span>
+                  <span className={`font-bold pl-2`}>
+                    14.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between text-xs mb-1 text-white/50 `}
+                >
+                  <span className={``}>DAILY EARNINGS</span>
+                  <span className={`font-bold pl-2`}>
+                    44.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between gap-2  text-sm mb-1 mt-4 text-darkone `}
+                >
+                  <button className={`w-full rounded-md bg-stone-500 py-1  `}>
+                    WITHDRAW DUSD
+                  </button>
+                </div>
+                {/* <Approved /> */}
+              </div>
             </>
           )}
           {(mode === "BORROW" || mode === "DEFAULT") && (
             <>
-              <div className={`min-w-full bg-red-500`}>borr</div>
-              <div className={`min-w-full bg-violet-500`}>borr</div>
+              <div className={`min-w-full py-5 px-[6%] h-min`}>
+                {/* ---------------------------------------------------------------------------- */}
+                {/* SUPPLY-borrow section */}
+                {/* ---------------------------------------------------------------------------- */}
+                <Amount handleInput={setSupplyAmt} />
+                <div
+                  className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}
+                ></div>
+                <div
+                  className={`flex w-full items-center justify-between mb-2 text-sm text-white/50 `}
+                >
+                  <span className={``}>BORROWING LIMIT</span>
+                  <span className={`font-bold pl-2`}>
+                    0.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between text-sm text-white/50 `}
+                >
+                  <span className={``}>COLLATERAL APR</span>
+                  <span className={`font-bold pl-2`}>
+                    4.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}
+                ></div>
+                <p className={`text-[10px] text-white/50`}>
+                  SUPPLYING UTILIZATION
+                </p>
+                <SliderComponent handleUtilization={setSupplyUtilization} />
+                <div
+                  className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}
+                ></div>
+                <div
+                  className={`flex w-full items-center justify-between text-xs mb-1 text-white/50 `}
+                >
+                  <span className={``}>COLLATERAL BALANCE</span>
+                  <span className={`font-bold pl-2`}>
+                    6.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between text-xs mb-1 text-white/50 `}
+                >
+                  <span className={``}>BORROW LIMIT</span>
+                  <span className={`font-bold pl-2`}>
+                    14.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between text-xs mb-1 text-white/50 `}
+                >
+                  <span className={``}>DAILY EARNINGS</span>
+                  <span className={`font-bold pl-2`}>
+                    44.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between gap-2  text-sm mb-1 mt-4 text-darkone `}
+                >
+                  <button className={`w-full rounded-md bg-stone-500 py-1  `}>
+                    BORROW USDC
+                  </button>
+                </div>
+              </div>
+              <div className={`min-w-full py-5 px-[6%] h-min`}>
+                {/* ---------------------------------------------------------------------------- */}
+                {/* SUPPLY-repay section */}
+                {/* ---------------------------------------------------------------------------- */}
+                <Amount handleInput={setSupplyAmt} />
+                <SliderComponent handleUtilization={setSupplyUtilization} />
+                <div
+                  className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}
+                ></div>
+                <div
+                  className={`flex w-full items-center justify-between mb-2 text-sm text-white/50 `}
+                >
+                  <span className={``}>CURRENTLY BORROWING</span>
+                  <span className={`font-bold pl-2`}>
+                    0.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between text-sm text-white/50 `}
+                >
+                  <span className={``}>COLLATERAL APR</span>
+                  <span className={`font-bold pl-2`}>
+                    4.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}
+                ></div>
+                <p className={`text-[10px] text-white/50`}>
+                  SUPPLYING UTILIZATION
+                </p>
+                <SliderComponent handleUtilization={setSupplyUtilization} />
+                <div
+                  className={` w-full h-[1px]  bg-white/30 mx-auto my-3`}
+                ></div>
+                <div
+                  className={`flex w-full items-center justify-between text-xs mb-1 text-white/50 `}
+                >
+                  <span className={``}>COLLATERAL BALANCE</span>
+                  <span className={`font-bold pl-2`}>
+                    6.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between text-xs mb-1 text-white/50 `}
+                >
+                  <span className={``}>BORROW LIMIT</span>
+                  <span className={`font-bold pl-2`}>
+                    14.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between text-xs mb-1 text-white/50 `}
+                >
+                  <span className={``}>DAILY EARNINGS</span>
+                  <span className={`font-bold pl-2`}>
+                    44.56%
+                    {/* this will be dynamic */}
+                  </span>
+                </div>
+                <div
+                  className={`flex w-full items-center justify-between gap-2  text-sm mb-1 mt-4 text-darkone `}
+                >
+                  <button className={`w-full rounded-md bg-stone-500 py-1  `}>
+                    BORROW USDC
+                  </button>
+                  <button className={`w-full rounded-md bg-stone-500 py-1  `}>
+                    COLLATERAL DUSD
+                    {/* this will be dynamic */}
+                  </button>
+                </div>
+                <Approved />
+              </div>
             </>
           )}
         </div>
