@@ -10,7 +10,7 @@
 }
 
 @layer utilities {
-  .grid-cols-18 {
+  .grid-cols-21 {
     grid-template-columns: repeat(21, minmax(0, 1fr));
   }
   input[type="number"]::-webkit-inner-spin-button,

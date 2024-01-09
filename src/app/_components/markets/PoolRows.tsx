@@ -12,7 +12,7 @@ const PoolRows = ({asset , colleteralT , borrowingT , lendingT , cAPR , lAPR , b
   
   return (
     <div
-    className={`w-full hover:bg-graylite transition-all duration-200 ease-linear bg-grayUnselect rounded-xl mb-3 px-2  gap-x-1 grid  grid-cols-18  py-4 text-xs text-white/80 font-semibold text-center items-center `}
+    className={`w-full hover:bg-graylite transition-all duration-200 ease-linear bg-grayUnselect rounded-xl mb-3 px-2  gap-x-1 grid  grid-cols-21  py-4 text-xs text-white/80 font-semibold text-center items-center `}
   >
     <div className={`col-span-2  flex gap-2 items-center justify-center  `}>
       <img src={`/img/logo/${asset}.png `} alt={asset} className='h-7' />

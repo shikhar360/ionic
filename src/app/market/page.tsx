@@ -88,10 +88,10 @@ export default function Market() {
         <div
           className={`bg-grayone min-h-[60vh] pb-20 w-full px-[3%] mt-3 rounded-xl`}
         >
-          <div className={` w-full flex items-center justify-center py-3 `}>
+          <div className={` w-full flex items-center justify-between py-3 `}>
             <h1 className={`font-semibold`}>Mode Lending & Borrowing</h1>
             <div
-              className={`ml-auto flex gap-x-2 items-center justify-center `}
+              className={` min-w-[30%] flex gap-x-2  items-center justify-center `}
             >
               <img
                 src="/img/assets/search.png"
@@ -102,13 +102,13 @@ export default function Market() {
                 type="text"
                 name=""
                 id=""
-                placeholder="Search by assetvname, symbol or address"
+                placeholder="Search by asset name, symbol or address"
                 className={
-                  " placeholder:text-xs bg-grayone border-r px-2 border-white/20"
+                  " w-full focus:outline-none placeholder:text-xs  bg-grayone border-r px-2 border-white/20"
                 }
               />
-              <div className={`flex items-center justify-center text-xs px-2`}>
-                Sort by{" "}
+              <div className={`flex w-[30%] flex-nowrap items-center justify-center text-xs px-2`}>
+                <p className="w-full truncate flex-nowrap">Sort By</p>
                 <img
                   src="/img/assets/downarr.png"
                   alt="downarr"
@@ -119,7 +119,7 @@ export default function Market() {
           </div>
           <PoolToggle />
           <div
-            className={`w-full gap-x-1 grid  grid-cols-18 items-start py-4 text-[10px] text-white/40 font-semibold text-center px-2 `}
+            className={`w-full gap-x-1 grid  grid-cols-21 items-start py-4 text-[10px] text-white/40 font-semibold text-center px-2 `}
           >
             <h3 className={` col-span-2  `}>ASSETS</h3>
             <h3 className={` col-span-2`}>TOTAL COLLATERAL</h3>
@@ -134,6 +134,7 @@ export default function Market() {
           {poolrow &&
             poolrow.map((val: any, idx: number) => (
               <PoolRows
+              
                 key={idx}
                 asset={val.asset}
                 colleteralT={val.colleteralT}
