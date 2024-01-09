@@ -9,21 +9,31 @@ import { useRouter } from "next/navigation";
 
 interface IPopup {
   mode?: string;
+  specific? : string | null
 }
-const Popup = ({ mode = "DEFAULT" }: IPopup) => {
+const Popup = ({ mode = "DEFAULT" , specific = null }: IPopup) => {
   // console.log(mode);
   const [active, setActive] = useState<string>("");
   const slide = useRef<HTMLDivElement>(null!);
   const router = useRouter();
   useEffect(() => {
     if (mode === "DEFAULT" || "SUPPLY") {
+      if(specific){
+        setActive(specific)
+        return
+      }
       setActive("COLLATERAL");
+
     }
 
     if (mode === "BORROW") {
+      if(specific){
+        setActive(specific)
+        return
+      }
       setActive("BORROW");
     }
-  }, [mode]);
+  }, [mode , specific]);
 
   useEffect(() => {
     if (mode === "DEFAULT") {

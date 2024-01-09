@@ -1,6 +1,7 @@
 "use client";
 import "./globals.css";
-import NextNProgress from "nextjs-progressbar";
+// import NextNProgress from "nextjs-progressbar";
+import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 import "@rainbow-me/rainbowkit/styles.css";
 
 
@@ -52,10 +53,12 @@ export default function RootLayout({
         accentColor: '#3bff89ff',
         accentColorForeground: 'black',
       })}>
-            <NextNProgress
-              color={"#3bff89"}
-              options={{ showSpinner: false }}
-            />
+             <ProgressBar
+                height="2px"
+                color="#3bff89ff"
+                options={{ showSpinner: false }}
+                shallowRouting
+              />
             <Navbar />
             {children}
           </RainbowKitProvider>

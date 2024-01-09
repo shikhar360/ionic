@@ -3,7 +3,13 @@
 
 import { useState } from "react";
 import SupplyRows from "../_components/dashboards/SupplyRows";
+import Popup from "../_components/popup/page";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 export default function Dashboard() {
+  const searchParams = useSearchParams();
+  const popmode = searchParams.get("popmode");
+  const specific = searchParams.get("specific");
   const supplyrow = [
     {
       asset: "DUSD",
@@ -29,7 +35,6 @@ export default function Dashboard() {
       utilisation: 2364,
       rewards: 6588,
     },
-   
   ];
   return (
     <main className={`pt-14`}>
@@ -106,15 +111,16 @@ export default function Dashboard() {
               <span>CLAIMABLE POINTS</span>
               <span> 73982</span>
             </div>
-            <button
+            <Link
+            href={`/points`}
               className={`w-full rounded-md bg-accent text-black py-2 px-6 text-center text-xs mt-auto  `}
             >
               CLAIM POINTS
-            </button>
+            </Link>
           </div>
         </div>
         <div className={`bg-grayone  w-full px-6 py-3 mt-3 rounded-xl`}>
-        <div className={` w-full flex items-center justify-between py-3 `}>
+          <div className={` w-full flex items-center justify-between py-3 `}>
             <h1 className={`font-semibold`}>Your Collateral (supply)</h1>
             <div
               className={` min-w-[30%] flex gap-x-2  items-center justify-center `}
@@ -133,7 +139,9 @@ export default function Dashboard() {
                   " w-full focus:outline-none placeholder:text-xs  bg-grayone border-r px-2 border-white/20"
                 }
               />
-              <div className={`flex w-[30%] flex-nowrap items-center justify-center text-xs px-2`}>
+              <div
+                className={`flex w-[30%] flex-nowrap items-center justify-center text-xs px-2`}
+              >
                 <p className="w-full truncate flex-nowrap">Sort By</p>
                 <img
                   src="/img/assets/downarr.png"
@@ -142,8 +150,8 @@ export default function Dashboard() {
                 />
               </div>
             </div>
-        </div>
-        <div
+          </div>
+          <div
             className={`w-full gap-x-1 grid  grid-cols-8  py-4 text-[10px] text-white/40 font-semibold text-center  `}
           >
             <h3 className={` `}>SUPPLY ASSETS</h3>
@@ -153,7 +161,7 @@ export default function Dashboard() {
             <h3 className={` `}>UTILISATION</h3>
             <h3 className={` `}>REWARDS</h3>
           </div>
-        {supplyrow &&
+          {supplyrow &&
             supplyrow.map((val: any, idx: number) => (
               <SupplyRows
                 key={idx}
@@ -167,7 +175,7 @@ export default function Dashboard() {
             ))}
         </div>
         <div className={`bg-grayone  w-full px-6 py-3 mt-3 rounded-xl`}>
-        <div className={` w-full flex items-center justify-between py-3 `}>
+          <div className={` w-full flex items-center justify-between py-3 `}>
             <h1 className={`font-semibold`}>Your Borrows (Loans)</h1>
             <div
               className={` min-w-[30%] flex gap-x-2  items-center justify-center `}
@@ -186,7 +194,9 @@ export default function Dashboard() {
                   " w-full focus:outline-none placeholder:text-xs  bg-grayone border-r px-2 border-white/20"
                 }
               />
-              <div className={`flex w-[30%] flex-nowrap items-center justify-center text-xs px-2`}>
+              <div
+                className={`flex w-[30%] flex-nowrap items-center justify-center text-xs px-2`}
+              >
                 <p className="w-full truncate flex-nowrap">Sort By</p>
                 <img
                   src="/img/assets/downarr.png"
@@ -195,8 +205,8 @@ export default function Dashboard() {
                 />
               </div>
             </div>
-        </div>
-        <div
+          </div>
+          <div
             className={`w-full gap-x-1 grid  grid-cols-8  py-4 text-[10px] text-white/40 font-semibold text-center  `}
           >
             <h3 className={` `}>SUPPLY ASSETS</h3>
@@ -206,10 +216,10 @@ export default function Dashboard() {
             <h3 className={` `}>UTILISATION</h3>
             <h3 className={` `}>REWARDS</h3>
           </div>
-        {supplyrow &&
+          {supplyrow &&
             supplyrow.map((val: any, idx: number) => (
               <SupplyRows
-              mode={"BORROW"}
+                mode={"BORROW"}
                 key={idx}
                 asset={val.asset}
                 amount={val.amount}
@@ -221,6 +231,7 @@ export default function Dashboard() {
             ))}
         </div>
       </div>
+      {popmode && <Popup mode={popmode} specific={specific} />}
     </main>
   );
 }

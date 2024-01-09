@@ -31,12 +31,42 @@ export const donutoptions ={
     }
 }
 
+//--------------------- flat dounuts rewards section-----------
 
 
+// export const rewardsData = {
+//   labels: [
+//     'Red',
+//     'Blue',
+//     'Yellow'
+//   ],
+//   datasets: [{
+    
+//     data: [300, 50, 100],
+//     backgroundColor: [
+//       'rgb(255, 99, 132)',
+//       'rgb(54, 162, 235)',
+//       'rgb(255, 205, 86)'
+//     ],
+//     hoverOffset: 4
+//   }]
+// }
 
-
-
-
+// export const rewardsOption ={
+//   maintainAspectRatio: false,
+//   // spacing :10 ,
+//   plugins: {
+//     legend: {
+//       display : false,
+//     }},
+//     elements :{
+//       arc :{
+//         circular : false ,
+//         borderWidth : 0 ,
+//         borderDash : [90]
+//       }
+//     }
+// }
 
 //------------------------graph chart-------------------
 export const chartoptions = {

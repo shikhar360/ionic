@@ -3,6 +3,8 @@
 //---------------------IMPORTS-------------------
 import React from "react";
 import { useSearchParams  , usePathname} from "next/navigation";
+import { useRouter } from "next/navigation";
+
 
 import Link from "next/link";
 import {
@@ -72,7 +74,8 @@ const Asset = ({ params }: IProp) => {
     lAPR: 45,
     bAPR: 8345,
   };
-
+  const router = useRouter();
+  
   const searchParams = useSearchParams();
   const info = searchParams.get("info");
     const popmode = searchParams.get("popmode");
@@ -82,7 +85,7 @@ const Asset = ({ params }: IProp) => {
         className={`w-full flex flex-col items-start py-4 justify-start bg-grayone h-min px-[3%] rounded-xl`}
       >
         <div className={`flex items-center justify-center gap-2 py-3 pt-2 `}>
-          <img src="/img/assets/back.png" alt="modlogo" className={`h-5`} />
+          <img onClick={() => router.back()} src="/img/assets/back.png" alt="modlogo" className={`h-5 cursor-pointer`} />
           <img
             src={`/img/logo/${assetdetails.asset}.png `}
             alt={assetdetails.asset}
